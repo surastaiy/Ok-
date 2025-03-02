@@ -1,0 +1,26 @@
+name: Convert README to PDF
+
+on:
+  push:
+    branches:
+      - main  # Change this if your branch is different
+
+jobs:
+  convert-to-pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install Pandoc
+        run: sudo apt-get install -y pandoc
+
+      - name: Convert README.md to PDF
+        run: pandoc README.md -o Lecture_Schedule.pdf
+
+      - name: Upload PDF as Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Lecture_Schedule_PDF
+          path: Lecture_Schedule.pdf
